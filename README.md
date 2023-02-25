@@ -1,0 +1,101 @@
+# Backupd 2023
+----------------------
+## Автор/Autor
+Pavel Chernov (K1rch)
+
+## Описание/Description
+<b>ru:</b>
+Backupd - это демон, производящий резервное копирование любых файлов, которые
+были как-либо изменены в указанной директории или субдериктории указанной
+директории. Резервное копирование производится сразу после внесения изменения
+в файл (после сигнала CTRL+S, например).
+
+Исключение для копирования - скрытые файлы, они игнорируются.
+
+<b>en:</b>
+Backupd is a daemon that backups any files that
+have been modified in any way in the specified directory or subdirectory of the specified
+directories. A backup is made immediately after the change is made.
+to a file (after the CTRL+S signal, for example).
+
+The exception for copying is hidden files, they are ignored.
+
+## Сборка и установка/Assembly and installation
+
+<b>ru:</b>
+1. Выполните копирование репозитория
+```
+git clone git@github.com:K0001rch/backupd.git
+```
+
+2. Запустите сборку `make`
+```
+make
+```
+
+ВНИМАНИЕ:
+От Вас потребуются права root, чтобы интегрировать демона в свою систему !
+
+3. Запустите демона через systemctl
+```
+systemctl start BackupPJ.service
+```
+
+4. Проверьте, что демон заработал
+```
+systemctl status BackupPJ.service
+```
+
+<i>
+Теперь все файлы, которые были как-либо изменены в директории
+указанной в конфигурационном файле (path_to_dir) или её субдиректории
+будут скопированы в директорию, указанную в path_to_backup с
+сохранением имени файла. 
+</i>
+Все лог-сообщения будут сохранены в директорию, указанную в параметре
+path_to_log.
+
+5. <b>Остановите работу демона</b>
+```
+systemctl kill -s 2 BackupPJ.service
+```
+Таким образом демон остановится по сигналу SIGINT без утечек памяти.
+
+<b>en:</b>
+1. Copy the repository
+```
+git clone backupd.git
+```
+
+2. Run build `make`
+```
+make
+```
+
+<b>ATTENTION</b>:
+You will need root privileges to integrate the daemon into your system!
+
+3. Start the daemon via systemctl
+```
+systemctl start BackupPJ.service
+```
+
+4. Check that the daemon is running
+```
+systemctl status BackupPJ.service
+```
+
+<i>
+Now all files that have been modified in any way in the directory
+specified in the configuration file (path_to_dir) or its subdirectory
+will be copied to the directory specified in path_to_backup with
+saving the filename.
+</i>
+All log messages will be saved to the directory specified in the parameter
+path_to_log.
+
+5. <b>Stop the daemon<b>
+```
+systemctl kill -s 2 BackupPJ.service
+```
+This way the daemon will stop on SIGINT signal without memory leaks.
