@@ -1,5 +1,5 @@
 # Backupd 2023
-----------------------
+
 ## Автор/Autor
 Pavel Chernov (K1rch)
 
@@ -64,7 +64,7 @@ systemctl kill -s 2 BackupPJ.service
 <b>en:</b>
 1. Copy the repository
 ```
-git clone backupd.git
+git clone git@github.com:K0001rch/backupd.git
 ```
 
 2. Run build `make`
@@ -99,3 +99,29 @@ path_to_log.
 systemctl kill -s 2 BackupPJ.service
 ```
 This way the daemon will stop on SIGINT signal without memory leaks.
+
+## Дополнительно/Additionally
+<b>ru:</b>
+Если вы хотите сделать замечание, исправить найденный баг, сделать задачу из списка TODO, разбросанных по коду -
+делайте merge-request. Названия ветки давайте таким образом:
+fix-1.1 (если это первый найденный баг за проект), аналогично с фичами и модификациями (первое число - версия проекта, второе - номер исправленного бага, в данном случае).
+
+Аналогично с фичами и модификациями:
+feature-1.2
+enhancement-1.3
+
+<b>en:</b>
+If you want to make a remark, fix a found bug, make a task from the TODO list scattered throughout the code -
+make a merge request. Let's name the branch like this:
+fix-1.1 (if this is the first bug found for the project), similarly with features and modifications (the first number is the project version, the second is the number of the fixed bug, in this case).
+
+Similarly with features and modifications:
+feature-1.2
+enhancement-1.3
+
+### Контактная информация/Contact info
+<b>ru</b>:
+Используйте телеграмм, для связи со мной. Ссылка на телеграм в <a href="https://github.com/K0001rch/K0001rch">профиле</a>
+
+<b>en:</b>
+Use telegram to contact me. Telegram <a href="https://github.com/K0001rch/K0001rch">link</a> in profile
