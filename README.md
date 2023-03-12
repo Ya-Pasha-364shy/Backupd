@@ -94,7 +94,7 @@ saving the filename.
 All log messages will be saved to the directory specified in the parameter
 path_to_log.
 
-5. <b>Stop the daemon<b>
+5. <b>Stop the daemon</b>
 ```
 systemctl kill -s 2 BackupPJ.service
 ```
