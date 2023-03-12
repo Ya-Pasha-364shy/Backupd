@@ -3,7 +3,7 @@
 
 #include "helpers/helpers_common.h"
 
-// #define ENABLE_DEBUG_INFO
+#define ENABLE_DEBUG_INFO
 
 #define NORMAL_EXIT      (0)
 #define INVALID_EXIT     (-1)

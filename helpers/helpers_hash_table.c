@@ -22,6 +22,7 @@ static hash_t __hash_key_generator(char * str)
 static hash_item_t * __hash_item_create(char * value)
 {
     if (!value) return NULL;
+
     size_t value_len = strlen(value);
     if (value_len > HASH_ITEM_MAX_SIZE_STR)
     {
@@ -33,7 +34,7 @@ static hash_item_t * __hash_item_create(char * value)
 	memset(hash_item, 0, sizeof(hash_item_t));
 
     hash_item->value = (char *)malloc(sizeof(char) * value_len);
-    memset(hash_item->value, 0, value_len);
+    memset(hash_item->value, 0, sizeof(char) * value_len);
     strncpy(hash_item->value, value, value_len);
 
     hash_t key     = __hash_key_generator(value);
@@ -166,6 +167,7 @@ int test1()
     hash_table_insert_item(HT, "/home/k1rch/value3");
     hash_table_insert_item(HT, "/home/k1rch/value4");
     hash_table_insert_item(HT, "/home/k1rch/value4");
+    // COLLISION OCCURED HERE !
     hash_table_insert_item(HT, "biba");
     hash_table_insert_item(HT, "babi");
 
