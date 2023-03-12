@@ -57,6 +57,8 @@ void signal_handler(int signum);
 
 int helpers_get_keep_running(void);
 
+void helpers_mutex_trylock(pthread_mutex_t * mutex);
+
 // USE ONLY WITH PTHREADS !
 void * pthread_on_dir_run(void * argument);
 /*

@@ -1,6 +1,11 @@
 #include "include/main.h"
 #include "include/helpers/helpers_hash_table.h"
 
+/* 
+ * @brief
+ * backup_loop
+ * Need for "recursive backups"
+*/
 void * backup_loop(void * argument)
 {
 	fprintf(stderr, "<%s> thread id %lu start running on backup loop successfully...\n",
@@ -27,8 +32,7 @@ int main(int argc, char * argv[])
 	const int sleep_now = 1;
 	void * (* func[THREAD_COUNT])(void * path_to_dir) = { backup_loop, main_loop };
 	hash_table_t * HT = hash_table_create(HASH_TABLE_MAX);
-	thread_argument_t * argument = malloc(sizeof(thread_argument_t));
-	memset(argument, 0, sizeof(thread_argument_t));
+	thread_argument_t * argument = (thread_argument_t *)calloc(1, sizeof(thread_argument_t));
 	argument->hash_table = HT; 
 	char path_to_dir_buffer[HELPERS_BUF_SIZE] = {0};
 
@@ -61,10 +65,11 @@ int main(int argc, char * argv[])
 	bool flag = true;
 	int before = 0, after = 0, i = 0, j = 0, counter;
 	size_t size_of_line;
-    char * tmp;
+	char * tmp;
 	char * dir;
-    char before_value[HELPERS_BUF_SIZE] = {0};
+	char before_value[HELPERS_BUF_SIZE] = {0};
 	char * buffer = parser_read_conf();
+	fprintf(stderr, "Buffer = %s\n\n", buffer);
 
 	if (NULL == buffer)
 	{
@@ -84,7 +89,7 @@ int main(int argc, char * argv[])
         size_of_line = sizeof(char) * after;
 
         char * tmp = (char *)malloc(size_of_line);
-        memset(tmp, 0, sizeof(tmp));
+		memset(tmp, 0, size_of_line);
 
         counter = 0;
         for (j = before; j < after; j++)
@@ -120,7 +125,7 @@ int main(int argc, char * argv[])
         // parse value (segment of data with some path)
         int local_counter = 0;
         char * slice_after_delimeter = (char *)malloc(sizeof(char) * size_of_line);
-        memset(slice_after_delimeter, 0, sizeof(slice_after_delimeter));
+		memset(slice_after_delimeter, 0, sizeof(slice_after_delimeter));
 
 		for (int i = index + 2; tmp[i] != '\0'; i++)
         {
@@ -175,7 +180,7 @@ int main(int argc, char * argv[])
 	for (i = 0; i < THREAD_COUNT; i++)
 	{
 		rc = pthread_create(&threads[i], NULL, func[i], argument);
-		if (0 != rc)
+		if (NORMAL_EXIT != rc)
 		{
 			printf("<%s> Error for create thread id #%lu; return code: %d", __func__, threads[i], rc);
 			pthread_mutex_destroy(&mutex);

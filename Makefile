@@ -43,4 +43,4 @@ build: build_main_loop
 	rm -f $(WORKDIR_BINARIES)/*.o
 
 clean:
-	rm -f $(WORKDIR_BINARIES)/*
+	 rm -f $(WORKDIR_BINARIES)/* ~/backup_service.log *.log 
