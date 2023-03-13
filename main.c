@@ -55,10 +55,8 @@ int main(int argc, char * argv[])
 	}
 
 	/* TODO: 
-	 * make a func for this purpose (in helpers side)
-	 * heap -> stack
-	 * or
-	 * change type of parsing conf file (from .yaml, for example)
+	 * 1) make a func for this purpose (in helpers side)
+	 * 2) change type of parsing conf file (from .yaml, for example)
 	*/
 	/* ==================== */
 	/* Start of Serializing */
@@ -69,7 +67,6 @@ int main(int argc, char * argv[])
 	char * dir;
 	char before_value[HELPERS_BUF_SIZE] = {0};
 	char * buffer = parser_read_conf();
-	fprintf(stderr, "Buffer = %s\n\n", buffer);
 
 	if (NULL == buffer)
 	{
@@ -88,8 +85,7 @@ int main(int argc, char * argv[])
         after = i;
         size_of_line = sizeof(char) * after;
 
-        char * tmp = (char *)malloc(size_of_line);
-		memset(tmp, 0, size_of_line);
+        char tmp[after];
 
         counter = 0;
         for (j = before; j < after; j++)
@@ -100,8 +96,6 @@ int main(int argc, char * argv[])
 
         if (strlen(tmp) > HELPERS_FILE_STROKE_MAX_LEN)
         {
-            fprintf(stderr, "Length of stroke in configuration file very long!\n");
-			free(tmp);
 			free(buffer);
             return INVALID_EXIT;
         }
@@ -110,7 +104,6 @@ int main(int argc, char * argv[])
         int index = parser_get_index_by_param(tmp, PARSER_DELIMETER);
         if (0 > index)
 		{
-			free(tmp);
             continue;
 		}
 
@@ -124,24 +117,23 @@ int main(int argc, char * argv[])
 
         // parse value (segment of data with some path)
         int local_counter = 0;
-        char * slice_after_delimeter = (char *)malloc(sizeof(char) * size_of_line);
-		memset(slice_after_delimeter, 0, sizeof(slice_after_delimeter));
+        char slice_after_delimeter[size_of_line];
 
 		for (int i = index + 2; tmp[i] != '\0'; i++)
         {
             slice_after_delimeter[local_counter++] = tmp[i];
         }
+		slice_after_delimeter[local_counter] = '\0';
+
 		if (0 == strcmp(before_value, PATH_TO_DIR_DEFINE))
 		{
 			struct stat path_stat;
 			stat(slice_after_delimeter, &path_stat);
 			if (!S_ISDIR(path_stat.st_mode))
 			{
-				fprintf(stderr, "Warning: this path is not a path to directory !\n");		
-				free(slice_after_delimeter);
-				free(tmp);
+				fprintf(stderr, "Warning: this path is not a path to directory !\n");
 				free(buffer);
-				return free_and_exit(INVALID_EXIT);		
+				return free_and_exit(INVALID_EXIT);
 			}
 			strncpy(path_to_dir_buffer, slice_after_delimeter, strlen(slice_after_delimeter));
 		}
@@ -153,8 +145,6 @@ int main(int argc, char * argv[])
 		{
 			logger_set_path_to_log(slice_after_delimeter);
 		}
-		free(slice_after_delimeter);
-		free(tmp);
 	}
 	free(buffer);
 	argument->path_to_dir = path_to_dir_buffer;
