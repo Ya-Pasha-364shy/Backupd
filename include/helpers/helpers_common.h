@@ -26,6 +26,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <fts.h>
+#include <dirent.h>
 #include <pthread.h>
 #include "event_queue.h"
 #include "helpers_hash_table.h"
@@ -37,6 +38,7 @@
 #define HELPERS_MAX_BUFFER_SIZE     (16384)
 
 #define HELPERS_10_SEC              10000
+#define HELPERS_5_SEC               5000
 #define HELPERS_MAX_SEC_WAIT        (15)
 #define HELPERS_BUF_SIZE            (1024)
 
@@ -44,6 +46,22 @@
 
 #define PATH_TO_DIR_DEFINE          "path_to_dir"
 #define PATH_TO_BACKUP_DEFINE       "path_to_backup"
+
+#define HELPERS_FILE                "File"
+#define HELPERS_DIR                 "Dir"
+#define HELPERS_TMP_EXTENSION       (".tmp")
+#define HELPERS_DOT                 '.'
+#define HELPERS_SLASH               '/'
+
+#define HELPERS_ALWAYS_SLEEP_MS     100
+
+typedef enum
+{
+    HELPERS_THR_SUCCESS         = 0 << 0,
+    HELPERS_THR_NEED_TO_EXIT    = 1 << 1,
+    HELPERS_THR_UNDEF_BEHAVIOUR = 1 << 2, 
+    HELPERS_THR_ERROR           = 1 << 3,
+} thread_ret_code_t;
 
 typedef struct thread_argument_s
 {

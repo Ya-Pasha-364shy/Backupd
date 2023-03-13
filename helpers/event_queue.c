@@ -25,18 +25,17 @@ queue_t queue_create()
 
 void queue_destroy(queue_t q)
 {
-	if (NULL != q)
+	if (NULL == q) return;
+
+	while (NULL != q->head)
 	{
-		while (NULL != q->head)
-		{
-			queue_entry_t next = q->head;
-			q->head = next->next_ptr;
-			next->next_ptr = NULL;
-			free(next);
-		}
-		q->head = q->tail = NULL;
-		free(q);
+		queue_entry_t next = q->head;
+		q->head = next->next_ptr;
+		next->next_ptr = NULL;
+		free(next);
 	}
+	q->head = q->tail = NULL;
+	free(q);
 }
 
 void queue_enqueue(queue_entry_t d, queue_t q)

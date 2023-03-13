@@ -2,7 +2,7 @@
 #define HELPERS_HASH_TABLE_H
 
 #define HASH_ITEM_MAX_SIZE_STR (512)
-#define HASH_KEY_MAX_LEN       (100000)
+#define HASH_KEY_MAX_LEN       (10000)
 #define HASH_TABLE_MAX_SIZE    HASH_KEY_MAX_LEN
 
 typedef unsigned int hash_t;
