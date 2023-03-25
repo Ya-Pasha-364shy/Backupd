@@ -13,28 +13,28 @@ WORKDIR_BINARIES=$(WORKDIR)/bin
 CC=gcc
 
 # FLAGS OF COMPILER
-FLAGS=-c -g -O2
+BACKUP_FLAGS=-c -g -O2
 
 all: build
 
 build_logger_api:
-	$(CC) $(FLAGS) $(WORKDIR_HELPERS)/helpers_logger.c -o \
+	$(CC) $(BACKUP_FLAGS) $(WORKDIR_HELPERS)/helpers_logger.c -o \
 	$(WORKDIR_BINARIES)/helpers_logger.o
 
 build_hash_table_api: build_logger_api 
-	$(CC) $(FLAGS) $(WORKDIR_HELPERS)/helpers_hash_table.c -o \
+	$(CC) $(BACKUP_FLAGS) $(WORKDIR_HELPERS)/helpers_hash_table.c -o \
 	$(WORKDIR_BINARIES)/helpers_hash_table.o
 
 build_event_queue: build_hash_table_api
-	$(CC) $(FLAGS) $(WORKDIR_HELPERS)/event_queue.c -o \
+	$(CC) $(BACKUP_FLAGS) $(WORKDIR_HELPERS)/event_queue.c -o \
 	$(WORKDIR_BINARIES)/event_queue.o 
 
 build_helpers: build_event_queue
-	$(CC) $(FLAGS) -lpthread $(WORKDIR_HELPERS)/helpers_common.c -o \
+	$(CC) $(BACKUP_FLAGS) -lpthread $(WORKDIR_HELPERS)/helpers_common.c -o \
     $(WORKDIR_BINARIES)/helpers_common.o 
 
 build_main_loop: build_helpers
-	$(CC) $(FLAGS) -lpthread $(WORKDIR)/main.c -o \
+	$(CC) $(BACKUP_FLAGS) -lpthread $(WORKDIR)/main.c -o \
 	$(WORKDIR_BINARIES)/main.o
 
 build: build_main_loop

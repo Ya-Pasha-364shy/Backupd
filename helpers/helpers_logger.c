@@ -8,27 +8,27 @@ static char path_to_log[LOGGER_PATH_TO_LOG_LEN] = {0};
 
 void logger_set_path_to_log(char * set)
 {
-    if (NULL == set) return;
-    strncpy(path_to_log, set, strlen(set));
+	if (NULL == set) return;
+	strncpy(path_to_log, set, strlen(set));
 }
 
 char * logger_get_path_to_log()
 {
-    return path_to_log;
+	return path_to_log;
 }
 
 int logger(char * message)
 {
-    if (!message) return LOGGER_INVALID_EXIT;
-    FILE * fptr;
-    
-    if ((fptr = fopen(path_to_log, "a")) == NULL)
-    {
-        fprintf(stderr, "Error: unable to open log file!\n");
-        return LOGGER_INVALID_EXIT;
-    }
-    fprintf(fptr, "%s\n", message);
+	if (!message) return LOGGER_INVALID_EXIT;
+	FILE * fptr;
 
-    fclose(fptr);
-    return LOGGER_NORMAL_EXIT;
+	if ((fptr = fopen(path_to_log, "a")) == NULL)
+	{
+		fprintf(stderr, "Error: unable to open log file!\n");
+		return LOGGER_INVALID_EXIT;
+	}
+	fprintf(fptr, "%s\n", message);
+
+	fclose(fptr);
+	return LOGGER_NORMAL_EXIT;
 }

@@ -54,15 +54,15 @@ void queue_enqueue(queue_entry_t d, queue_t q)
 
 queue_entry_t queue_dequeue(queue_t q)
 {
-    queue_entry_t first = q->head;
-    if (first)
-    {
-        q->head = first->next_ptr;
-        if (q->head == NULL) 
-        {
-            q->tail = NULL;
-        }
-        first->next_ptr = NULL;
-    }
-    return first;
+	queue_entry_t first = q->head;
+	if (first)
+	{
+		q->head = first->next_ptr;
+		if (q->head == NULL) 
+		{
+			q->tail = NULL;
+		}
+		first->next_ptr = NULL;
+	}
+	return first;
 }
