@@ -223,7 +223,7 @@ int process_inotify_events(queue_t q, int fd, thread_argument_t * arg)
 		}
 	}
 
-    return rc;
+	return rc;
 }
 
 void * pthread_on_dir_run(void * argument)
@@ -246,15 +246,15 @@ void * pthread_on_dir_run(void * argument)
 		if (wd > 0)
 		{
 			if (HELPERS_INVALID_EXIT == process_inotify_events(queue, inotify_fd, arg))
-            {
-                goto out;
-            }
+			{
+				goto out;
+			}
 		}
 
 		if (HELPERS_INVALID_EXIT == close_inotify_fd(inotify_fd))
-        {
-            goto out;        
-        }
+		{
+			goto out;
+		}
 		queue_destroy(queue);
 	}
 out:
@@ -502,7 +502,7 @@ static int backup_check_fs_and_run(thread_argument_t * arg)
 		{
 			case FTS_F:
 			{
-                // TODO:
+				// TODO:
 				// checking that file was be "backuped"
 				// file in all subdirectories of our "root" (in arg->path_to_dir)
 				hash_table_insert_item(arg->hash_table, p->fts_path);

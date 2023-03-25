@@ -1,5 +1,4 @@
 #include "include/main.h"
-#include "include/helpers/helpers_hash_table.h"
 
 /* 
  * @brief
@@ -75,54 +74,54 @@ int main(int argc, char * argv[])
 	}
 	while (flag)
 	{
-        for (i = before; buffer[i] != '\n'; i++)
-        {
-            if (buffer[i] == '\0')
-            {
-                flag = false;
-            }
-        }
-        after = i;
-        size_of_line = sizeof(char) * after;
-
-        char tmp[after];
-
-        counter = 0;
-        for (j = before; j < after; j++)
+		for (i = before; buffer[i] != '\n'; i++)
 		{
-        	tmp[counter++] = buffer[j];
+			if (buffer[i] == '\0')
+			{
+				flag = false;
+			}
+		}
+		after = i;
+		size_of_line = sizeof(char) * after;
+
+		char tmp[after];
+
+		counter = 0;
+		for (j = before; j < after; j++)
+		{
+			tmp[counter++] = buffer[j];
 		}
 		tmp[counter] = '\0';
 
-        if (strlen(tmp) > HELPERS_FILE_STROKE_MAX_LEN)
-        {
-			free(buffer);
-            return INVALID_EXIT;
-        }
-        // skipping \n for normal work
-        before = after + 1;
-        int index = parser_get_index_by_param(tmp, PARSER_DELIMETER);
-        if (0 > index)
+		if (strlen(tmp) > HELPERS_FILE_STROKE_MAX_LEN)
 		{
-            continue;
+			free(buffer);
+			return INVALID_EXIT;
+		}
+		// skipping \n for normal work
+		before = after + 1;
+		int index = parser_get_index_by_param(tmp, PARSER_DELIMETER);
+		if (0 > index)
+		{
+			continue;
 		}
 
-        int k;
-        // in result before_value is parameter without value
-        for (k = 0; k != index; k++)
-        {
-		    before_value[k] = tmp[k];
+		int k;
+		// in result before_value is parameter without value
+		for (k = 0; k != index; k++)
+		{
+			before_value[k] = tmp[k];
 		}
 		before_value[k] = '\0';
 
-        // parse value (segment of data with some path)
-        int local_counter = 0;
-        char slice_after_delimeter[size_of_line];
+		// parse value (segment of data with some path)
+		int local_counter = 0;
+		char slice_after_delimeter[size_of_line];
 
 		for (int i = index + 2; tmp[i] != '\0'; i++)
-        {
-            slice_after_delimeter[local_counter++] = tmp[i];
-        }
+		{
+			slice_after_delimeter[local_counter++] = tmp[i];
+		}
 		slice_after_delimeter[local_counter] = '\0';
 
 		if (0 == strcmp(before_value, PATH_TO_DIR_DEFINE))

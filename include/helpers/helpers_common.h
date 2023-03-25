@@ -55,14 +55,6 @@
 
 #define HELPERS_ALWAYS_SLEEP_MS     100
 
-typedef enum
-{
-    HELPERS_THR_SUCCESS         = 0 << 0,
-    HELPERS_THR_NEED_TO_EXIT    = 1 << 1,
-    HELPERS_THR_UNDEF_BEHAVIOUR = 1 << 2, 
-    HELPERS_THR_ERROR           = 1 << 3,
-} thread_ret_code_t;
-
 typedef struct thread_argument_s
 {
     char *            path_to_dir;
