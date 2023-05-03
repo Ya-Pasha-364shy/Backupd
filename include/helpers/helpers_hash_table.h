@@ -16,13 +16,17 @@ typedef enum
 
 typedef struct hash_item_s
 {
-	hash_t          key;
-    char *          value;
+	hash_t key;
+	char * value;
+
+	void * previous;
 } hash_item_t;
 
 typedef struct hash_table_s
 {
 	hash_item_t **    table;
+	hash_item_t *     node;
+
 	hash_table_size_t size;
 	int               count;
 } hash_table_t;
