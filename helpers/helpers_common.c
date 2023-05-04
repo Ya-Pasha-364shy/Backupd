@@ -310,24 +310,20 @@ static void handle_event(queue_entry_t event, thread_argument_t * arg)
 			return;
 		}
 		DIR * thread_directory = NULL;
-		for (int i = 0; i < arg->hash_table->size; i++)
+
+		hash_item_t * hi = arg->hash_table->node;
+		while (hi != NULL)
 		{
-			if (NULL != hash_table_search_item(arg->hash_table, i, NULL))
+			thread_directory = opendir(hi->value);
+			if (thread_directory && !backup_helpers_find_file(cur_event_filename, thread_directory))
+			{ 
+				hi = hi->previous;
+				continue;
+			}
+			else if (thread_directory)
 			{
-				thread_directory = opendir(arg->hash_table->table[i]->value);
-				if (NULL != thread_directory)
-				{
-					if (false == backup_helpers_find_file(cur_event_filename, thread_directory))
-					{
-						continue;
-					}
-					else
-					{
-						// path to file founded successfully, refresh
-						arg->path_to_dir = arg->hash_table->table[i]->value;
-						break;
-					}
-				}
+				arg->path_to_dir = hi->value;
+				break;
 			}
 		}
 		cur_event_file_or_dir = HELPERS_FILE;
