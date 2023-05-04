@@ -33,11 +33,11 @@ static hash_item_t * __hash_item_create(char * value)
 	hash_item_t * hash_item = (hash_item_t *)malloc(sizeof(hash_item_t));
 	memset(hash_item, 0, sizeof(hash_item_t));
 
-	hash_item->value        = (char *)malloc(sizeof(char) * value_len);
+	hash_item->value = (char *)malloc(sizeof(char) * value_len);
 	memset(hash_item->value, 0, sizeof(char) * value_len);
 	strncpy(hash_item->value, value, value_len);
 
-	hash_t key              = __hash_key_generator(value);
+	hash_t key = __hash_key_generator(value);
 	if (key >= 0 && key <= 1.1)
 	{
 		printf("Error: This path to file is too big !\n");
@@ -45,8 +45,9 @@ static hash_item_t * __hash_item_create(char * value)
 	}
 	else
 	{
-		hash_item->key  = key;
+		hash_item->key      = key;
 		hash_item->previous = NULL;
+		hash_item->next     = NULL;
 
 		return hash_item;
 	}
@@ -130,6 +131,7 @@ unsigned int hash_table_insert_item(hash_table_t * this, char * value)
 		}
 		else
 		{
+			this->node->next = (void *)item;
 			item->previous = this->node;
 			this->node = (void *)item;
 		}

@@ -316,7 +316,7 @@ static void handle_event(queue_entry_t event, thread_argument_t * arg)
 		{
 			thread_directory = opendir(hi->value);
 			if (thread_directory && !backup_helpers_find_file(cur_event_filename, thread_directory))
-			{
+			{ 
 				hi = hi->previous;
 				continue;
 			}

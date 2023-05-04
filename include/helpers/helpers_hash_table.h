@@ -20,6 +20,7 @@ typedef struct hash_item_s
 	char * value;
 
 	void * previous;
+	void * next;
 } hash_item_t;
 
 typedef struct hash_table_s
