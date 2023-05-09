@@ -24,7 +24,7 @@ int helpers_get_keep_running()
 	return keep_running;
 }
 
-// unused yet
+#if 0
 void helpers_mutex_trylock(pthread_mutex_t * mutex)
 {
 	fprintf(stderr, "<%s>\n", __func__);
@@ -54,6 +54,7 @@ void helpers_mutex_trylock(pthread_mutex_t * mutex)
 		}
 	}
 }
+#endif
 
 /* ===================== */
 /* HANDLE INOTIFY CALLS */
@@ -247,12 +248,16 @@ void * pthread_on_dir_run(void * argument)
 		{
 			if (HELPERS_INVALID_EXIT == process_inotify_events(queue, inotify_fd, arg))
 			{
+				if (queue)
+					queue_destroy(queue);
 				goto out;
 			}
 		}
 
 		if (HELPERS_INVALID_EXIT == close_inotify_fd(inotify_fd))
 		{
+			if (queue)
+				queue_destroy(queue);
 			goto out;
 		}
 		queue_destroy(queue);
@@ -387,7 +392,7 @@ static void handle_event(queue_entry_t event, thread_argument_t * arg)
 		}
 		default:
 		{
-			// need for handle CTRL+S signal to saving file
+			// need for handle CTRL+S signal to saving file (for example)
 			sprintf(message_buffer, "UNKNOWN EVENT \"%X\" OCCURRED for file \"%s\", need to backup",
 					event->inot_ev.mask, cur_event_filename);
 			need_to_backup = true;
