@@ -23,7 +23,7 @@ The exception for copying is hidden files, they are ignored.
 ## Сборка и установка/Assembly and installation
 
 <b>ru:</b>
-1. Выполните копирование репозитория
+1. Выполните клонирование репозитория
 ```
 git clone git@github.com:K0001rch/backupd.git
 ```
@@ -62,7 +62,7 @@ systemctl kill -s 2 BackupPJ.service
 Таким образом демон остановится по сигналу SIGINT без утечек памяти.
 
 <b>en:</b>
-1. Copy the repository
+1. Clone the repo
 ```
 git clone git@github.com:K0001rch/backupd.git
 ```
