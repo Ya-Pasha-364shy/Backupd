@@ -13,7 +13,10 @@ echo "WorkingDirectory=$PWD/bin" >> BackupPJ.service
 # all logs written to stderr will be written to this file: backupd.errors.log
 # check ENABLE_DEBUG_INFO for this purpose! 
 echo "ExecStart=/bin/bash -ce \"./backupd 2> ../backupd.errors.log\"" >> BackupPJ.service
+echo "ExecReload=/bin/bash -ce \"kill -s 2 `cat /run/backupd_pj.pid`\"\n" >> BackupPJ.service
+
 echo "[Install]" >> BackupPJ.service
 echo "WantedBy=multi-user.target" >> BackupPJ.service
+
 
 sudo mv BackupPJ.service -t /etc/systemd/system/

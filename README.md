@@ -57,7 +57,7 @@ path_to_log.
 
 5. <b>Остановите работу демона</b>
 ```
-systemctl kill -s 2 BackupPJ.service
+systemctl stop BackupPJ.service
 ```
 Таким образом демон остановится по сигналу SIGINT без утечек памяти.
 
@@ -96,7 +96,7 @@ path_to_log.
 
 5. <b>Stop the daemon</b>
 ```
-systemctl kill -s 2 BackupPJ.service
+systemctl stop 2 BackupPJ.service
 ```
 This way the daemon will stop on SIGINT signal without memory leaks.
 
