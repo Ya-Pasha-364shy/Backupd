@@ -25,7 +25,7 @@ The exception for copying is hidden files, they are ignored.
 <b>ru:</b>
 1. Выполните клонирование репозитория
 ```
-git clone git@github.com:K0001rch/backupd.git
+git clone https://github.com/Ya-Pasha-364shy/Backupd.git
 ```
 
 2. Запустите сборку `make`
@@ -64,7 +64,7 @@ systemctl stop BackupPJ.service
 <b>en:</b>
 1. Clone the repo
 ```
-git clone git@github.com:K0001rch/backupd.git
+git clone https://github.com/Ya-Pasha-364shy/Backupd.git
 ```
 
 2. Run build `make`
@@ -96,7 +96,7 @@ path_to_log.
 
 5. <b>Stop the daemon</b>
 ```
-systemctl stop 2 BackupPJ.service
+systemctl stop BackupPJ.service
 ```
 This way the daemon will stop on SIGINT signal without memory leaks.
 
